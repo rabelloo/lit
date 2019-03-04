@@ -1,5 +1,6 @@
 import { render } from 'lit-html';
-import { App } from './app';
-import './app.scss';
+import { App } from './app/app';
+import { subscribe } from './core/store';
+import './index.scss';
 
-render(App, document.body);
+subscribe(state => render(App(state), document.body));
