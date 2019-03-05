@@ -1,11 +1,10 @@
 import { html } from 'lit-html';
-import { register } from '../core/store';
+import { store } from '../core/store';
 
-const { dispatch } = register({
-  key: 'name',
-  reducer: (_, name) => name,
-  type: '[Name]: change name',
-});
+const state = store.slice('name');
+const dispatch = state
+  .case('[Name]: change name')
+  .reduce<string>((_, name) => name!);
 
 export const Name = (name: string) =>
   html`

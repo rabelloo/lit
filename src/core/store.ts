@@ -1,4 +1,4 @@
-import { createStore } from '../store';
+import { createStore, logger } from '../store';
 import { State } from './state';
 
 const initialData: State = {
@@ -6,6 +6,4 @@ const initialData: State = {
   name: '',
 };
 
-const store = createStore(initialData, { enableLog: true });
-
-export const { register, subscribe } = store;
+export const store = createStore(initialData, logger());

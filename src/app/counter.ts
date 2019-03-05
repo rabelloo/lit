@@ -1,20 +1,13 @@
 import { html } from 'lit-html';
-import { register } from '../core/store';
+import { store } from '../core/store';
 
-const { dispatch: decrement } = register({
-  key: 'count',
-  reducer: c => c - 1,
-  type: '[Counter]: decrease count',
-});
-const { dispatch: increment } = register({
-  key: 'count',
-  reducer: c => c + 1,
-  type: '[Counter]: increase count',
-});
+const state = store.slice('count');
+const decrement = state.case('[Counter]: decrease count').reduce(c => c - 1);
+const increment = state.case('[Counter]: increase count').reduce(c => c + 1);
 
 export const Counter = (count = 0) =>
   html`
     <div>${count ? `Count: ${count}` : `No count`}</div>
-    <button @click=${() => increment()}>Increase</button>
-    <button @click=${() => decrement()}>Decrease</button>
+    <button @click=${increment}>Increase</button>
+    <button @click=${decrement}>Decrease</button>
   `;
