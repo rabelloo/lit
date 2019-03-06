@@ -20,7 +20,7 @@ export function createStore<S extends {}>(
   ...metaReducers: Array<MetaReducer<S, any>>
 ): Store<S> {
   let store: S;
-  const reducers = new Set<string>();
+  const types = new Set<string>();
   const subscribers = new Set<Subscriber<S>>();
 
   set({ ...initialData }, '[Core] initialize store');
@@ -49,12 +49,12 @@ export function createStore<S extends {}>(
   }
 
   function register(type: string) {
-    if (reducers.has(type)) {
+    if (types.has(type)) {
       throw new Error(`Store already has registration of type (${type}).
 Choose a different type and make sure you only call register() once per type.`);
     }
 
-    reducers.add(type);
+    types.add(type);
   }
 
   function set<P>(state: S, type: string, payload?: P) {
